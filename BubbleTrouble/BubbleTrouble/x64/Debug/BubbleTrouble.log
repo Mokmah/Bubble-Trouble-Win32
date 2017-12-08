@@ -17,6 +17,5 @@ z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(777): warn
 z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(778): warning C4305: 'initialisation' : troncation de 'double' à 'float'
 z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(820): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
 z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(822): warning C4244: 'argument' : conversion de 'float' en 'int', perte possible de données
-  LINK : Z:\Bubble-Trouble-Win32\BubbleTrouble\x64\Debug\BubbleTrouble.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
   BubbleTrouble.vcxproj -> Z:\Bubble-Trouble-Win32\BubbleTrouble\x64\Debug\BubbleTrouble.exe
   BubbleTrouble.vcxproj -> Z:\Bubble-Trouble-Win32\BubbleTrouble\x64\Debug\BubbleTrouble.pdb (Partial PDB)
