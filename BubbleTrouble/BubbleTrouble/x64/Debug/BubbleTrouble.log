@@ -1,21 +1,18 @@
 ﻿  BubbleTrouble.cpp
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(30): warning C4305: 'initialisation' : troncation de 'double' à 'float'
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(336): warning C4244: '=' : conversion de 'LONG' en 'float', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(337): warning C4244: '=' : conversion de 'LONG' en 'float', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(371): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(520): warning C4244: '=' : conversion de 'LONG' en 'float', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(521): warning C4244: '=' : conversion de 'LONG' en 'float', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(538): warning C4305: 'initialisation' : troncation de 'double' à 'float'
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(539): warning C4305: 'initialisation' : troncation de 'double' à 'float'
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(665): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(667): warning C4244: 'argument' : conversion de 'float' en 'int', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(693): warning C4305: '=' : troncation de 'double' à 'float'
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(701): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(711): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(721): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(777): warning C4305: 'initialisation' : troncation de 'double' à 'float'
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(778): warning C4305: 'initialisation' : troncation de 'double' à 'float'
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(820): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-z:\bubble-trouble-win32\bubbletrouble\bubbletrouble\bubbletrouble.cpp(822): warning C4244: 'argument' : conversion de 'float' en 'int', perte possible de données
-  BubbleTrouble.vcxproj -> Z:\Bubble-Trouble-Win32\BubbleTrouble\x64\Debug\BubbleTrouble.exe
-  BubbleTrouble.vcxproj -> Z:\Bubble-Trouble-Win32\BubbleTrouble\x64\Debug\BubbleTrouble.pdb (Partial PDB)
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(31): warning C4305: 'initialisation' : troncation de 'double' à 'float'
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(301): warning C4244: '=' : conversion de 'LONG' en 'float', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(302): warning C4244: '=' : conversion de 'LONG' en 'float', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(336): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(486): warning C4244: '=' : conversion de 'LONG' en 'float', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(487): warning C4244: '=' : conversion de 'LONG' en 'float', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(504): warning C4305: 'initialisation' : troncation de 'double' à 'float'
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(615): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(617): warning C4244: 'argument' : conversion de 'float' en 'int', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(647): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(657): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(667): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(723): warning C4305: 'initialisation' : troncation de 'double' à 'float'
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(766): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\usager\desktop\bubble-trouble-win32-master\bubbletrouble\bubbletrouble\bubbletrouble.cpp(768): warning C4244: 'argument' : conversion de 'float' en 'int', perte possible de données
+  BubbleTrouble.vcxproj -> C:\Users\usager\Desktop\Bubble-Trouble-Win32-master\BubbleTrouble\x64\Debug\BubbleTrouble.exe
+  BubbleTrouble.vcxproj -> C:\Users\usager\Desktop\Bubble-Trouble-Win32-master\BubbleTrouble\x64\Debug\BubbleTrouble.pdb (Partial PDB)
