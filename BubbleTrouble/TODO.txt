@@ -1,0 +1,5 @@
+add velocity harpoon
+multiple skin chooses 
+special bubble (ex: change air resistance)
+pts size bubble
+touche
