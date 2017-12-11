@@ -7,17 +7,17 @@
 #include "math.h"
 #include "stdio.h"
 
-#define MAX_LOADSTRING 100 //izz est soul
-#define LENGTH_NAME 50
-#define INTERVAL_BUBBLE 5000
-#define MAX_HARPOON 5
-#define BUBBLE_INITIAL_RAY 30
-#define CHILD_BUBBLE_DISTANCE 20
+#define MAX_LOADSTRING 100 
+#define LENGTH_NAME 50 //Longueur du nom
+#define INTERVAL_BUBBLE 5000 //Intreval entre les bulles en milliseconde
+#define MAX_HARPOON 5 //Nombre maximal de harpons
+#define BUBBLE_INITIAL_RAY 30 //Rayon initial des bulles
+#define CHILD_BUBBLE_DISTANCE 20 //Rayon initial des bulles qui sont créées lors de la séparation
 #define MIN_RAY 20
 
 #define FRAME_ID 69
-#define BUBBLE_ID 70
-#define SPECIAL_BUBBLE_ID 71
+#define BUBBLE_ID 70 //ID des bulles
+#define SPECIAL_BUBBLE_ID 71 //ID des bulles
 // Variables globales :
 HINSTANCE hInst;                                // instance actuelle
 WCHAR szTitle[MAX_LOADSTRING];                  // Le texte de la barre de titre
@@ -27,12 +27,12 @@ RECT g_desktopWindow, g_updateRect;
 //POINT g_tabHarpoonJ1, g_tabHarpoonJ2, g_characterPos, g_characterPos2;
 Gameboard g_gameBoard;
 Position *g_pos1, *g_pos2;
-int g_FPS;
+int g_FPS; //Nombre de frames par seconde
 float g_res = 0.9999; // Toutes les variables res devront être changées en g_res pour appliquer l'effet slow motion
 CRITICAL_SECTION g_critic;
 
-HANDLE HarThread;
-DWORD ThreadID;
+HANDLE HarThread; //Handle du thread du harpon
+DWORD ThreadID; //Id du thread créé
 HANDLE Anchor = NULL;
 // Pré-déclarations des fonctions incluses dans ce module de code :
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -54,13 +54,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	srand((int)time(0));
 	rand();
 
-	//
+	//Position du Joueur1
 	g_pos1 = new Position();
 	g_pos1->Player.x = 800;
 	g_pos1->Player.y = 900;
 	/*g_characterPos.x = 800;
 	g_characterPos.y = 900;*/
-
+	//Position du Joueur2
 	g_pos2 = new Position();
 	g_pos2->Player.x = 600;
 	g_pos2->Player.y = 900;
@@ -177,7 +177,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
 	case WM_QUIT:
-	{
+	{	//Lorsque l'on quitte pour que ça ne crash pas
 		Sleep(5000);
 
 		LeaveCriticalSection(&g_critic);
@@ -202,15 +202,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
-		case VK_LEFT:
+		case VK_LEFT://Lors de clique gauche
 			/*g_characterPos.x -= 10;*/
 			if (g_gameBoard.tabPlayer[0].dead == false)
-				g_pos1->Player.x -= 10;
+				g_pos1->Player.x -= 10;//déplacer joueur
 			break;
-		case VK_RIGHT:
+		case VK_RIGHT://Lors de clique droit
 		/*	g_characterPos.x += 10;*/
 			if (g_gameBoard.tabPlayer[0].dead == false)
-				g_pos1->Player.x += 10;
+				g_pos1->Player.x += 10; //déplacer joueur
 			break;
 		case VK_UP:
 		{
@@ -218,7 +218,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				if (Anchor == NULL)
 				{
-
+					//si clique droit et il n'y a pas de harpon créé en ce moment, il en créé un
 					Anchor = CreateThread(NULL, 0, HarpoonThread, (void *)g_pos1, 0, &ThreadID);
 					if (Anchor == NULL)
 					{
@@ -226,7 +226,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					}
 				}
 				else
-				{
+				{	//s'il y a déja un thread créé, on envoie un message pour détruire le thread
 					PostThreadMessage(ThreadID, WM_CHAR, NULL, NULL);
 					if (Anchor == NULL)
 					{
@@ -236,9 +236,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 		}
-		//a
+		//-----------------------------------Même chose mais pour le joueur2-------------------------------
 		case 0x41:
-		{
+		{	
 			if (g_gameBoard.tabPlayer[1].dead == false)
 			{
 				if (g_gameBoard.nbPlayer == 2)
@@ -287,7 +287,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					}
 				}
 			}
-		}
+		}//-------------------------------------------------------------------------------------------------------------------------
 			break;
 		default:
 			break;
@@ -329,14 +329,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case FRAME_ID:
 			InvalidateRect(g_hwdn, NULL, TRUE);
 			return 0;
-		case SPECIAL_BUBBLE_ID:
+		case SPECIAL_BUBBLE_ID: //si timer bulle spécial on initialise une bulle spécial
 			Bubble *pBubble = new Bubble();
 			pBubble->x = rand() % g_desktopWindow.right;
 			pBubble->y = g_desktopWindow.top;
 			pBubble->ray = BUBBLE_INITIAL_RAY;
 			pBubble->xSpeed = 4;
 			pBubble->ySpeed = 4;
-
+			//Création thread spécial bulle
 			HANDLE hThread = CreateThread(NULL, 0, SpecialBubbleThread, pBubble, 0, 0);
 			if (hThread == NULL)
 			{
@@ -351,7 +351,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: ajoutez le code de dessin qui utilise hdc ici...
+		    //Score des joueurs
 			HFONT hFont = CreateFont(25, 15, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, NULL);
 			if (g_gameBoard.nbPlayer == 1)
 			{
@@ -367,7 +367,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			SelectObject(hdc, hFont);
 		
 			bool ret = TextOutA(hdc, 800, 20, g_gameBoard.scoreBoard, strlen(g_gameBoard.scoreBoard));
-
+			//Affichage du personnage, mais on doit premièrement mettre notre image en bitmap
 			HBITMAP character = (HBITMAP)LoadImageA(NULL, "front.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 			HDC hdcMem = CreateCompatibleDC(hdc);
 			SelectObject(hdcMem, character);
@@ -383,7 +383,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			DeleteObject(hdc);
 			DeleteObject(hFont);
 			DeleteObject(hdcMem);
-			
+			//Détruit nos objets pour optimiser notre mémoire
 
         }
         break;
@@ -419,13 +419,13 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 // Gestionnaire de messages pour la boîte de dialogue Inscription.
 INT_PTR CALLBACK Inscription(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
+{	//--------------------------------------------Formulaire d'inscription qui initialise le jeux lorsque le joueur s'inscrit 
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message)
 	{
 	case WM_INITDIALOG:
 		{
-
+			
 			HFONT hFont = CreateFont(25, 15, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, NULL);
 			HWND hExplication = GetDlgItem(hDlg, IDC_EXPLICATION);
 			SendMessage(hExplication, WM_SETFONT, (WPARAM)hFont, TRUE);
@@ -439,7 +439,7 @@ INT_PTR CALLBACK Inscription(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDC_START)
-		{
+		{	//On prend le nom des joueurs et on les inscrit
 			char J1[LENGTH_NAME], J2[LENGTH_NAME];
 
 			HWND hJ1 = GetDlgItem(hDlg, IDC_NAMEJ1);
@@ -462,7 +462,7 @@ INT_PTR CALLBACK Inscription(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 				MessageBox(hDlg, L"Entrez un joueur", L"Erreur", MB_OK);
 			}
 			else
-			{
+			{	
 				g_gameBoard.nbPlayer++;
 
 				Player player1;
@@ -470,7 +470,7 @@ INT_PTR CALLBACK Inscription(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 				strcpy_s(player1.name, J1);
 				g_gameBoard.tabPlayer[0] = player1;
 				g_gameBoard.tabPlayer[0].score = 0;
-				if (lengthJ2 > 0)
+				if (lengthJ2 > 0) //si texte entré, on ajoute un deuxième joueur
 				{
 					g_gameBoard.nbPlayer++;
 
@@ -500,7 +500,7 @@ INT_PTR CALLBACK Inscription(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 
 // Gestionnaire de messages pour la boîte de dialogue Regle.
 INT_PTR CALLBACK Regle(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
+{	//------------------------------------Formulaire qui explique les règles du jeux
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message)
 	{
@@ -525,7 +525,7 @@ INT_PTR CALLBACK Regle(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 // Timer des bulles.
 VOID CALLBACK TimerProc(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime)
-{
+{	//--------------------------------------On initialise les bulle avec le timer
 	Bubble *pBubble = new Bubble();
 	pBubble->x = rand() % g_desktopWindow.right;
 	pBubble->y = g_desktopWindow.top;
@@ -542,24 +542,24 @@ VOID CALLBACK TimerProc(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime)
 
 // Logique des bulles threads. 
 DWORD WINAPI BubbleThread(LPVOID lParam)
-{
+{	//initialise la bulle
 	Bubble *pBubble = (Bubble*)lParam;
-
+	//gravité
 	float grav = 0.08;
 	/*float res = 0.9999;*/
 
 	while (true)
 	{
 		HDC hdc = GetDC(g_hwdn);
-
+		//si la bulle touche le joueur 
 		if (CollidedCharacter(g_pos1->Player, *pBubble))
 		{
 
 
-
+			//Joueur = mort
 			g_gameBoard.tabPlayer[0].dead = true;
 
-
+			//si les deux joueurs sont morts ---> fin de la partie
 			if (g_gameBoard.nbPlayer == 1 || (g_gameBoard.nbPlayer == 2 && g_gameBoard.tabPlayer[1].dead))
 			{
 				HFONT hFont = CreateFont(650, 140, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, NULL);
@@ -570,17 +570,17 @@ DWORD WINAPI BubbleThread(LPVOID lParam)
 			}
 
 		}
-		else if (g_gameBoard.nbPlayer == 2)
+		else if (g_gameBoard.nbPlayer == 2) //--------------------Deuxième joueur
 		{
 			if (CollidedCharacter(g_pos2->Player, *pBubble))
 			{
-
+				
 
 				g_gameBoard.tabPlayer[1].dead = true;
 
 
 				if (g_gameBoard.tabPlayer[0].dead)
-				{
+				{	//si le premier joueur est mort aussi ---> fin de la partie
 					HFONT hFont = CreateFont(650, 140, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, NULL);
 					HGDIOBJ hTmp = (HFONT)SelectObject(hdc, hFont);
 					DrawText(hdc, L"GAME OVER", 10, &g_desktopWindow, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
@@ -594,10 +594,10 @@ DWORD WINAPI BubbleThread(LPVOID lParam)
 			if (CollidedHarpoon(g_pos1->Harpoon, *pBubble))
 			{			
 				//TODO add points to player1
-				g_gameBoard.tabPlayer[0].score += 100;
+				g_gameBoard.tabPlayer[0].score += 100; //ajout de poitn si harpon entre en contact
 				//TODO change position with velocity of harpoon hitting the main bubble
 				if (pBubble->ray > MIN_RAY)
-				{
+				{	//Initialise deux bulles  qui sont plus petites
 					Bubble *pChildBubble1 = new Bubble();
 					pChildBubble1->x = pBubble->x - CHILD_BUBBLE_DISTANCE;
 					pChildBubble1->y = pBubble->y;
@@ -609,7 +609,7 @@ DWORD WINAPI BubbleThread(LPVOID lParam)
 					{
 						ExitProcess(3);
 					}
-
+					
 					Bubble *pChildBubble2 = new Bubble();
 					pChildBubble2->x = pBubble->x + CHILD_BUBBLE_DISTANCE;
 					pChildBubble2->y = pBubble->y;
@@ -626,7 +626,7 @@ DWORD WINAPI BubbleThread(LPVOID lParam)
 				delete[] pBubble;	
 				ExitThread(0);
 			}
-			else if(g_gameBoard.nbPlayer == 2)
+			else if(g_gameBoard.nbPlayer == 2)//-----------------Même chose mais pour le deuxième joueur
 			{
 				if (CollidedHarpoon(g_pos2->Harpoon, *pBubble))
 				{			
@@ -669,12 +669,12 @@ DWORD WINAPI BubbleThread(LPVOID lParam)
 		SetDCBrushColor(hdc, RGB(255, 20, 147));
 
 		int lengthXY = sqrt(pow(pBubble->ray, 2) / 2);
-
+		//Affichage de la bulle
 		Ellipse(hdc, pBubble->x - lengthXY, pBubble->y - lengthXY, pBubble->x + lengthXY, pBubble->y + lengthXY);
 		ReleaseDC(g_hwdn, hdc);
 		Sleep(4);
 
-
+		//Ajout de la vitesse et de la gravité
 		pBubble->ySpeed += grav;
 		pBubble->ySpeed *= g_res;
 		pBubble->xSpeed *= g_res;
@@ -698,9 +698,9 @@ DWORD WINAPI BubbleThread(LPVOID lParam)
 
 // Collision avec harpon.
 BOOL Collided(POINT harpoon, Bubble bubble)
-{
+{	
 	bool collide = false;
-	int distance = sqrt(pow(harpoon.x - bubble.x, 2) + pow(harpoon.y - bubble.y, 2));
+	int distance = sqrt(pow(harpoon.x - bubble.x, 2) + pow(harpoon.y - bubble.y, 2));//si position du harpon avec bulle
 
 	if (distance < bubble.ray)
 		collide = true;
@@ -728,7 +728,7 @@ BOOL CollidedCharacter(POINT character, Bubble bubble)
 	int rangeX = bubble.x + bubble.ray;
 	int rangeY = bubble.y + bubble.ray;
 
-	if (rangeX >= character.x && rangeX <= character.x + 100 && rangeY >= character.y)
+	if (rangeX >= character.x && rangeX <= character.x + 100 && rangeY >= character.y)//si collision avec joueur et bulle
 		collide = true;
 	return collide;
 }
@@ -755,7 +755,7 @@ DWORD WINAPI HarpoonThread(LPVOID lParam)
 	RECT rect;
 	//Boucle du thread
 	while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) == 0 && ((g_desktopWindow.bottom - g_desktopWindow.top + Top) >= 0))
-	{		
+	{	//tant qu'il ne recoit pas le message ou qu'il ne touche pas le top de l'écran, il continue a monté	
 		EnterCriticalSection(&g_critic);
 		rect = { Pos, pos->Player.y + Top, Pos + Right, pos->Player.y};
 		FillRect(hdc, &rect, brush);
@@ -766,7 +766,7 @@ DWORD WINAPI HarpoonThread(LPVOID lParam)
 		Sleep(1);
 	}
 	//Destruction du harpon précédent
-	
+		
 	pos->Harpoon.x = pos->Player.x;
 	pos->Harpoon.y = pos->Player.y;
 	HBRUSH brosse = CreateSolidBrush(RGB(0, 0, 0));
@@ -780,7 +780,7 @@ DWORD WINAPI HarpoonThread(LPVOID lParam)
 	return 0;
 }
 
-DWORD WINAPI SpecialBubbleThread(LPVOID lParam)
+DWORD WINAPI SpecialBubbleThread(LPVOID lParam)//Même thread que la bulle mais avec ajout multicouleur
 {
 	Bubble *pBubble = (Bubble*)lParam;
 
@@ -857,7 +857,7 @@ DWORD WINAPI SpecialBubbleThread(LPVOID lParam)
 
 
 		SelectObject(hdc, GetStockObject(DC_BRUSH));
-		SetDCBrushColor(hdc, RGB(rand() % 255, rand() % 255, rand() % 255));
+		SetDCBrushColor(hdc, RGB(rand() % 255, rand() % 255, rand() % 255));//Multicouleur
 
 		int lengthXY = sqrt(pow(pBubble->ray, 2) / 2);
 
