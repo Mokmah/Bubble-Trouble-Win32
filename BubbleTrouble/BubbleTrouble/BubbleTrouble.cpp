@@ -7,7 +7,7 @@
 #include "math.h"
 #include "stdio.h"
 
-#define MAX_LOADSTRING 100
+#define MAX_LOADSTRING 100 //izz est soul
 #define LENGTH_NAME 50
 #define INTERVAL_BUBBLE 5000
 #define MAX_HARPOON 5
